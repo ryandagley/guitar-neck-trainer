@@ -1,6 +1,6 @@
 import random
 import time
-import os
+import tkinter as tk
 
 # Define a dictionary to map notes to their corresponding string and fret positions
 # Sharps (#) and Flats (b)
@@ -24,29 +24,40 @@ note_mapping = {
     'D#': [('D', 1), ('G', 6), ('B', 8), ('e', 13)],
 }
 
+def display_large_note_and_answer(note, answer, label):
+    label.config(text=note)
+    label.update()
+    time.sleep(4)
+    label.config(text=answer, font=("Helvetica", 36))
+    label.update()
+    time.sleep(2)
 
 def main():
+    # Create a Tkinter window
+    window = tk.Tk()
+    
+    window.geometry("500x500")
+
+    # Set the window title
+    window.title("Neck Trainer")
+    
+    # Create a label with a large font to display the note and answer
+    label = tk.Label(window, text="", font=("Helvetica", 72))
+    label.pack(padx=20, pady=20)  # Add padding for better visibility
+
     while True:
         # Generate a random note
         note = random.choice(list(note_mapping.keys()))
         
-        # Print the note
-        print(f'Note: {note}')
-
-        # Wait 3 seconds before showing location of note.
-        time.sleep(3)
-        
         # Get the possible positions for the note
-        positions = [f'String: {string}, Fret: {fret}' for string, fret in note_mapping[note]]
+        positions = [f'{string}, {fret}' for string, fret in note_mapping[note]]
         
-        # Print all possible positions
-        print('\n'.join(positions))
-        
-        # Wait for a couple of seconds before the next note
-        time.sleep(2)
+        # Display the large note and answer
+        display_large_note_and_answer(f'{note}', '\n'.join(positions), label)
 
-        # Clear the output for the next one.
-        os.system('cls' if os.name == 'nt' else 'clear')
+        # Wait for a couple of seconds before the next note
+        time.sleep(1)  # Adjust the delay as needed
 
 if __name__ == "__main__":
     main()
+
