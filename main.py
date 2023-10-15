@@ -1,28 +1,9 @@
 import random
 import time
 import tkinter as tk
+from note_mapping import note_mapping
 
-# Define a dictionary to map notes to their corresponding string and fret positions
-# Sharps (#) and Flats (b)
-note_mapping = {
-    'E':  [('e', 0), ('B', 5), ('G', 9), ('D', 2), ('A', 7), ('E', 12)],
-    'F':  [('e', 1), ('A', 8), ('D', 3), ('E', 1)],
-    'F#': [('e', 2), ('A', 9), ('D', 4), ('G', 11)],
-    'Gb': [('e', 2), ('A', 9), ('D', 4), ('G', 11)],
-    'G':  [('e', 3), ('B',8),('A', 10), ('D', 5), ('G', 0)],
-    'Ab': [('e', 4), ('A', 11), ('D', 6), ('G', 1)],
-    'G#': [('e', 4), ('A', 11), ('D', 6), ('G', 1)],
-    'A':  [('e',7),('A', 0), ('D', 7), ('G', 2), ('B', 10)],
-    'Bb': [('A', 1), ('D', 8), ('G', 3), ('B', 11)],
-    'A#': [('A', 1), ('D', 8), ('G', 3), ('B', 11)],
-    'B':  [('e', 7), ('B', 0), ('G', 4), ('D', 5),('A', 2), ('E', 7)],
-    'C':  [('e', 8),('A', 3), ('D', 6), ('G', 5), ('B', 1)],
-    'Db': [('A', 4), ('D', 7), ('G', 6), ('B', 2)],
-    'C#': [('A', 4), ('D', 7), ('G', 6), ('B', 2)],
-    'D':  [('e', 2),('D', 0), ('G', 7), ('B', 3), ('e', 10)],
-    'Eb': [('D', 1), ('G', 8), ('B', 4), ('e', 11)],
-    'D#': [('D', 1), ('G', 8), ('B', 4), ('e', 11)],
-}
+
 
 def display_large_note_and_answer():
     note = random.choice(list(note_mapping.keys()))
