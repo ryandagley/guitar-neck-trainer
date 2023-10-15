@@ -1,41 +1,53 @@
 import random
-import time
 import tkinter as tk
 from note_mapping import note_mapping
 
+# Define a variable to track the pause state
+paused = False
 
+def toggle_pause():
+    global paused
+    paused = not paused
+    if paused:
+        pause_button.config(text="Resume", font=("Helvetica", 16))
+    else:
+        pause_button.config(text="Pause", font=("Helvetica", 16))
+        # Resume the cycle
+        display_large_note_and_answer()
 
 def display_large_note_and_answer():
-    note = random.choice(list(note_mapping.keys()))
-    positions = [f'{string}, {fret}' for string, fret in note_mapping[note]]
-    
-    # Update the label with the note
-    label.config(text=f'Note: {note}')
-    
-    # Schedule the answer update after 4000 milliseconds (4 seconds)
-    window.after(4000, update_answer_label, positions)
+    if not paused:
+        note = random.choice(list(note_mapping.keys()))
+        positions = [f'{string}, {fret}' for string, fret in note_mapping[note]]
+
+        # Update the label with the note
+        label.config(text=f'Note: {note}')
+
+        # Schedule the answer update after 4000 milliseconds (4 seconds)
+        window.after(4000, update_answer_label, positions)
 
 def update_answer_label(positions):
     # Update the label with the answer
     label.config(text='\n'.join(positions), font=("Helvetica", 36))
-    
+
     # Schedule the next note display after 2000 milliseconds (2 seconds)
     window.after(2000, display_large_note_and_answer)
 
 def main():
-    global window, label
-    
+    global window, label, pause_button
+
     # Create a Tkinter window
     window = tk.Tk()
-    
     window.geometry("500x500")
-
-    # Set the window title
     window.title("Neck Trainer")
     
     # Create a label with a large font to display the note and answer
     label = tk.Label(window, text="", font=("Helvetica", 72))
-    label.pack(padx=20, pady=20)  # Add padding for better visibility
+    label.place(x=20, y=20)
+
+    # Create a pause/unpause button
+    pause_button = tk.Button(window, text="Pause", command=toggle_pause, font=("Helvetica", 16))
+    pause_button.place(relx=1.0, rely=1.0, anchor="se", x=-10, y=-10)
 
     # Start the cycle by scheduling the first note display
     display_large_note_and_answer()
