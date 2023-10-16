@@ -9,9 +9,9 @@ def toggle_pause():
     global paused
     paused = not paused
     if paused:
-        pause_button.config(text="Resume", font=("Helvetica", 16))
+        pause_button.config(text="Resume")
     else:
-        pause_button.config(text="Pause", font=("Helvetica", 16))
+        pause_button.config(text="Pause")
         # Resume the cycle
         display_large_note_and_answer()
 
@@ -21,7 +21,7 @@ def display_large_note_and_answer():
         positions = [f'{string}, {fret}' for string, fret in note_mapping[note]]
 
         # Update the label with the note
-        label.config(text=f'Note: {note}')
+        label.config(text=f'Note: {note}', font=("Helvetica", 72))
 
         # Schedule the answer update after 4000 milliseconds (4 seconds)
         window.after(4000, update_answer_label, positions)
@@ -46,7 +46,7 @@ def main():
     label.place(x=20, y=20)
 
     # Create a pause/unpause button
-    pause_button = tk.Button(window, text="Pause", command=toggle_pause, font=("Helvetica", 16))
+    pause_button = tk.Button(window, text="Pause", command=toggle_pause)
     pause_button.place(relx=1.0, rely=1.0, anchor="se", x=-10, y=-10)
 
     # Start the cycle by scheduling the first note display
