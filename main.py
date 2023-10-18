@@ -33,13 +33,18 @@ def update_answer_label(positions):
     # Schedule the next note display after 2000 milliseconds (2 seconds)
     window.after(2000, display_large_note_and_answer)
 
+def stop_app():
+    global running
+    running = False
+    window.quit()
+
 def main():
     global window, label, pause_button
 
     # Create a Tkinter window
     window = tk.Tk()
     window.geometry("500x500")
-    window.title("Neck Trainer")
+    window.title("Guitar Neck Trainer")
     
     # Create a label with a large font to display the note and answer
     label = tk.Label(window, text="", font=("Helvetica", 72))
@@ -48,6 +53,9 @@ def main():
     # Create a pause/unpause button
     pause_button = tk.Button(window, text="Pause", command=toggle_pause)
     pause_button.place(relx=1.0, rely=1.0, anchor="se", x=-10, y=-10)
+
+    cancel_button = tk.Button(window, text="Cancel", command=stop_app)
+    cancel_button.place(relx=1.0, rely=1.0, anchor="se", x=-60, y=-10)
 
     # Start the cycle by scheduling the first note display
     display_large_note_and_answer()
