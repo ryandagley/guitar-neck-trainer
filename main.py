@@ -24,11 +24,12 @@ def display_large_note_and_answer():
         label.config(text=f'Note: {note}', font=("Helvetica", 72))
 
         # Schedule the answer update after 4000 milliseconds (4 seconds)
-        window.after(4000, update_answer_label, positions)
+        window.after(4000, lambda: update_answer_label(positions, note))
 
-def update_answer_label(positions):
+def update_answer_label(positions, note):
     # Update the label with the answer
-    label.config(text='\n'.join(positions), font=("Helvetica", 36))
+    text = f'{note} is located at: \n' + '\n'.join(positions)
+    label.config(text=text, font=("Helvetica", 36))
 
     # Schedule the next note display after 2000 milliseconds (2 seconds)
     window.after(2000, display_large_note_and_answer)
