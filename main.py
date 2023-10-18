@@ -32,7 +32,7 @@ def update_answer_label(positions, note):
     label.config(text=text, font=("Helvetica", 36))
 
     # Schedule the next note display after 2000 milliseconds (2 seconds)
-    window.after(2000, display_large_note_and_answer)
+    window.after(3000, display_large_note_and_answer)
 
 def stop_app():
     global running
