@@ -5,6 +5,8 @@ from note_mapping import note_mapping
 # Define a variable to track the pause state
 paused = False
 dark_mode = False  # Initially, set to light mode
+note_count = 0  # Counter for the number of notes displayed
+
 
 def toggle_pause():
     global paused
@@ -33,6 +35,7 @@ def toggle_dark_mode():
         cancel_button.config(text="Cancel", bg="lightgray", fg="black")
 
 def display_large_note_and_answer():
+    global note_count
     if not paused:
         note = random.choice(list(note_mapping.keys()))
         positions = [f'{string}, {fret}' for string, fret in note_mapping[note]]
@@ -42,6 +45,11 @@ def display_large_note_and_answer():
 
         # Schedule the answer update after 4000 milliseconds (4 seconds)
         window.after(4000, lambda: update_answer_label(positions, note))
+
+        note_count += 1
+
+        if note_count >= 3:
+            stop_app()
 
 def update_answer_label(positions, note):
     # Update the label with the answer
