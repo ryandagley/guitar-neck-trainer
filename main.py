@@ -1,12 +1,13 @@
 import random
 import tkinter as tk
 from note_mapping import note_mapping
+from tkinter.simpledialog import askinteger
 
-# Define a variable to track the pause state
+# Define global variables
 paused = False
 dark_mode = False  # Initially, set to light mode
 note_count = 0  # Counter for the number of notes displayed
-
+window = None  # Initialize the Tkinter window
 
 def toggle_pause():
     global paused
@@ -36,7 +37,7 @@ def toggle_dark_mode():
 
 def display_large_note_and_answer():
     global note_count
-    if not paused:
+    if not paused and note_count < max_notes:
         note = random.choice(list(note_mapping.keys()))
         positions = [f'{string}, {fret}' for string, fret in note_mapping[note]]
 
@@ -48,7 +49,7 @@ def display_large_note_and_answer():
 
         note_count += 1
 
-        if note_count >= 3:
+        if note_count >= max_notes:
             stop_app()
 
 def update_answer_label(positions, note):
@@ -60,12 +61,17 @@ def update_answer_label(positions, note):
     window.after(3000, display_large_note_and_answer)
 
 def stop_app():
-    global running
-    running = False
     window.quit()
 
 def main():
-    global window, label, pause_button, dark_mode_button, cancel_button
+    global window, label, pause_button, dark_mode_button, cancel_button, note_count, max_notes
+
+    # Ask the user for the number of notes they want to test
+    max_notes = askinteger("Note Count", "How many notes do you want to test before canceling?")
+
+    if max_notes is None:
+        # User clicked Cancel, so quit
+        return
 
     # Create a Tkinter window
     window = tk.Tk()
