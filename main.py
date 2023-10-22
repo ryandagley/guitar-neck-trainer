@@ -49,7 +49,7 @@ def display_large_note_and_answer():
 
         note_count += 1
 
-        if note_count >= max_notes:
+        if note_count > max_notes:
             stop_app()
 
 def update_answer_label(positions, note):
