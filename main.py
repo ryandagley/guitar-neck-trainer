@@ -2,6 +2,7 @@ import random
 import tkinter as tk
 from note_mapping import note_mapping
 from tkinter.simpledialog import askinteger
+from stop_app import stop_app
 
 # Define global variables
 paused = False
@@ -50,7 +51,7 @@ def display_large_note_and_answer():
         note_count += 1
 
         if note_count > max_notes:
-            stop_app()
+            stop_app(window)
 
 def update_answer_label(positions, note):
     # Update the label with the answer
@@ -60,8 +61,6 @@ def update_answer_label(positions, note):
     # Schedule the next note display after 2000 milliseconds (2 seconds)
     window.after(3000, display_large_note_and_answer)
 
-def stop_app():
-    window.quit()
 
 def main():
     global window, label, pause_button, dark_mode_button, cancel_button, note_count, max_notes
